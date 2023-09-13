@@ -1,0 +1,11 @@
+# Ignore node_modules
+node_modules
+
+# logs/ directory
+logs
+
+# .private directory
+.private
+
+# uploads directory
+uploads

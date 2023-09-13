@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Voice Recorder</title>
+</head>
+
+<body>
+	<h1>Voice Recorder</h1>
+	<button id="startButton">Start Recording</button>
+	<button id="stopButton" disabled>Stop Recording</button>
+	<audio id="audio" controls></audio>
+	<button id="uploadButton" disabled>Upload to Server</button>
+
+	<script>
+		const startButton = document.getElementById('startButton');
+		const stopButton = document.getElementById('stopButton');
+		const audioElement = document.getElementById('audio');
+		const uploadButton = document.getElementById('uploadButton');
+		let mediaRecorder;
+		let audioChunks = [];
+
+		startButton.addEventListener('click', async () => {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			mediaRecorder = new MediaRecorder(stream);
+
+			mediaRecorder.ondataavailable = event => {
+				audioChunks.push(event.data);
+			};
+
+			mediaRecorder.onstop = () => {
+				const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+				audioElement.src = URL.createObjectURL(audioBlob);
+				uploadButton.disabled = false;
+			};
+
+			mediaRecorder.start();
+			startButton.disabled = true;
+			stopButton.disabled = false;
+		});
+
+		stopButton.addEventListener('click', () => {
+			mediaRecorder.stop();
+			startButton.disabled = false;
+			stopButton.disabled = true;
+		});
+
+		uploadButton.addEventListener('click', async () => {
+			const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+			const formData = new FormData();
+			formData.append('audio', audioBlob, 'recording.wav');
+
+			const response = await fetch('http://localhost:3000/upload', {
+				method: 'POST',
+				body: formData,
+			});
+
+			if (response.ok) {
+				console.log('Upload successful');
+			} else {
+				console.error('Upload failed');
+			}
+
+			// Add an editable text field with transcript if it doesn't already exist
+			if (!document.getElementById('transcript')) {
+				const transcript = await response.text();
+				const textbox = document.createElement('textarea');
+				textbox.id = 'transcript';
+				textbox.innerText = transcript;
+				textbox.style.height = '200px';
+				textbox.style.width = '300px';
+				document.body.appendChild(textbox);
+			}
+		});
+	</script>
+</body>
+
+</html>
