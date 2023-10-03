@@ -13,6 +13,28 @@
 	<button id="stopButton" disabled>Stop Recording</button>
 	<audio id="audio" controls></audio>
 	<button id="uploadButton" disabled>Upload to Server</button>
+	<br>
+	<p>Source text (transcript):</p>
+	<textarea id="transcript"
+		style="height: 200px; width: 100%;">we talked about designing a new service for our banking app the requirements are connection to the main service creating a website using SvelteKit. deadline is next week</textarea>
+	<br>
+	<p>
+		<label for="category">Prompt category:</label>
+		<select id="category">
+			<option value="documentation">Documentation</option>
+			<option value="meeting-notes">Meeting notes</option>
+			<option value="summary">Summary</option>
+			<option value="leading-questions">Leading questions</option>
+			<option value="custom">Custom</option>
+		</select>
+	</p>
+	<button id="generate">Generate</button>
+	<br>
+	<p>Generated text:</p>
+	<textarea id="generated" style="height: 200px; width: 100%;"></textarea>
+	<br>
+	<br>
+	<button>Share (placeholder)</button>
 
 	<script>
 		const startButton = document.getElementById('startButton');
@@ -72,6 +94,43 @@
 				textbox.style.height = '200px';
 				textbox.style.width = '300px';
 				document.body.appendChild(textbox);
+			}
+		});
+
+		const generateButton = document.getElementById('generate');
+
+		generateButton.addEventListener('click', async () => {
+			const text = document.getElementById('transcript').value;
+			const category = document.getElementById('category').value;
+
+			const response = await fetch('http://localhost:3000/generate', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ text, category }),
+				responseType: 'text',
+			});
+
+			if (response.ok) {
+				// Static
+				// const generated = await response.text();
+				// document.getElementById('generated').value = generated;
+				// Read and display the response as it arrives
+				const reader = response.body.getReader();
+				let result = '';
+				while (true) {
+					const { done, value } = await reader.read();
+					// convert value to string
+					const text = new TextDecoder('utf-8').decode(value);
+					if (done) break;
+					result += text;
+					document.getElementById('generated').value = result;
+					// Scroll to bottom
+					document.getElementById('generated').scrollTop = document.getElementById('generated').scrollHeight;
+				}
+			} else {
+				console.error('Generation failed');
 			}
 		});
 	</script>

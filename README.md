@@ -6,6 +6,23 @@ Created using a template from https://github.com/RobertBarachini/nodejs-template
 
 # Setup
 
+## Node.js
+
+Install Node.js and pnpm (recommended) or npm (not recommended).
+
+```sh
+# Install dependencies
+pnpm install
+```
+
+## OpenAI
+
+Add the OpenAI API key (as exported variable) to `.env` file in the root of the project. Example:
+
+```sh
+export OPENAI_API_KEY="sk-..."
+```
+
 ## ffmpeg
 
 ```sh
@@ -28,6 +45,19 @@ whisper recording.wav
 # Example usage - get just the results, it will also create files with results in the current directory (.txt, .srt, ...)
 whisper recording.wav --language English --model medium 2>/dev/null | grep '^\['
 ```
+
+# Run
+
+## Native
+
+Start the server using the following command:
+
+```sh
+pnpm run dev
+```
+
+Open `index.html` using your browser or if you're using VS Code, you can use the `Live Preview` extension (by Microsoft).
+You can start the Live Preview server by opening the command palette and typing `Live Preview: Show Preview (External Browser)`. To stop the server, open the command palette and type `Live Preview: Stop Preview`.
 
 # Guidelines
 
@@ -174,9 +204,6 @@ Project has a defined local (scope: workspace) Thunder Client (VS Code extension
 # TODO
 
 - [x] Write a README.md
-- [ ] Extent the basic router
-- [ ] Extend README.md
-- [ ] Extend template
-- [ ] Add env management
-- [ ] Add secret management
-- [ ] Add remote logging
+- [x] Create backend
+- [ ] Create frontend
+- [ ] Improve prompts

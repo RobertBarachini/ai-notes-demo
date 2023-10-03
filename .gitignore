@@ -9,3 +9,6 @@ logs
 
 # uploads directory
 uploads
+
+# .env
+.env
