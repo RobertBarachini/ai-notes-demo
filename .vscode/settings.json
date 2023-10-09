@@ -10,4 +10,5 @@
 	"thunder-client.sidebar.showActivityFromCollection": true,
 	"thunder-client.saveRequestOnSend": false,
 	"thunder-client.certificates": [],
+	"livePreview.portNumber": 5000,
 }

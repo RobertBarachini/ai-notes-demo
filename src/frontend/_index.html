@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Voice Recorder</title>
+</head>
+
+<body>
+	<h1>Voice Recorder</h1>
+	<button id="startButton">Start Recording</button>
+	<button id="stopButton" disabled>Stop Recording</button>
+	<audio id="audio" controls></audio>
+	<button id="uploadButton" disabled>Upload to Server</button>
+	<br>
+	<p>Source text (transcript):</p>
+	<textarea id="transcript"
+		style="height: 200px; width: 100%;">we talked about designing a new service for our banking app the requirements are connection to the main service creating a website using SvelteKit. deadline is next week</textarea>
+	<br>
+	<p>
+		<label for="category">Prompt category:</label>
+		<select id="category">
+			<option value="documentation">Documentation</option>
+			<option value="meeting-notes">Meeting notes</option>
+			<option value="summary">Summary</option>
+			<option value="leading-questions">Leading questions</option>
+			<option value="custom">Custom</option>
+		</select>
+	</p>
+	<button id="generate">Generate</button>
+	<br>
+	<p>Generated text:</p>
+	<textarea id="generated" style="height: 200px; width: 100%;"></textarea>
+	<br>
+	<br>
+	<button>Share (placeholder)</button>
+
+	<script>
+		const startButton = document.getElementById('startButton');
+		const stopButton = document.getElementById('stopButton');
+		const audioElement = document.getElementById('audio');
+		const uploadButton = document.getElementById('uploadButton');
+		let mediaRecorder;
+		let audioChunks = [];
+
+		startButton.addEventListener('click', async () => {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			mediaRecorder = new MediaRecorder(stream);
+
+			mediaRecorder.ondataavailable = event => {
+				audioChunks.push(event.data);
+			};
+
+			mediaRecorder.onstop = () => {
+				const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+				audioElement.src = URL.createObjectURL(audioBlob);
+				uploadButton.disabled = false;
+			};
+
+			mediaRecorder.start();
+			startButton.disabled = true;
+			stopButton.disabled = false;
+		});
+
+		stopButton.addEventListener('click', () => {
+			mediaRecorder.stop();
+			startButton.disabled = false;
+			stopButton.disabled = true;
+		});
+
+		uploadButton.addEventListener('click', async () => {
+			const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+			const formData = new FormData();
+			formData.append('audio', audioBlob, 'recording.wav');
+
+			const response = await fetch('http://localhost:3000/upload', {
+				method: 'POST',
+				body: formData,
+			});
+
+			if (response.ok) {
+				console.log('Upload successful');
+			} else {
+				console.error('Upload failed');
+			}
+
+			// Add an editable text field with transcript if it doesn't already exist
+			if (!document.getElementById('transcript')) {
+				const transcript = await response.text();
+				const textbox = document.createElement('textarea');
+				textbox.id = 'transcript';
+				textbox.innerText = transcript;
+				textbox.style.height = '200px';
+				textbox.style.width = '300px';
+				document.body.appendChild(textbox);
+			}
+		});
+
+		const generateButton = document.getElementById('generate');
+
+		generateButton.addEventListener('click', async () => {
+			const text = document.getElementById('transcript').value;
+			const category = document.getElementById('category').value;
+
+			const response = await fetch('http://localhost:3000/generate', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ text, category }),
+				responseType: 'text',
+			});
+
+			if (response.ok) {
+				// Static
+				// const generated = await response.text();
+				// document.getElementById('generated').value = generated;
+				// Read and display the response as it arrives
+				const reader = response.body.getReader();
+				let result = '';
+				while (true) {
+					const { done, value } = await reader.read();
+					// convert value to string
+					const text = new TextDecoder('utf-8').decode(value);
+					if (done) break;
+					result += text;
+					document.getElementById('generated').value = result;
+					// Scroll to bottom
+					document.getElementById('generated').scrollTop = document.getElementById('generated').scrollHeight;
+				}
+			} else {
+				console.error('Generation failed');
+			}
+		});
+	</script>
+</body>
+
+</html>

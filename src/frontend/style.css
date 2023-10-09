@@ -1,0 +1,23 @@
+.oscillate-div {
+	transition: transform 0.5s ease-in-out;
+	animation: oscillate 2.5s ease-in-out infinite;
+}
+
+.oscillate-div-sm {
+	transition: transform 0.5s ease-in-out;
+	animation: oscillate 0s ease-in-out infinite;
+}
+
+.oscillate-div-sm:hover {
+	animation: oscillate 2.5s ease-in-out infinite;
+}
+
+@keyframes oscillate {
+	0%,
+	100% {
+		transform: translateY(0); /* Start and end position */
+	}
+	50% {
+		transform: translateY(-5px); /* Midpoint of oscillation */
+	}
+}

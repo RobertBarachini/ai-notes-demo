@@ -6,6 +6,7 @@
 		"**/tests/**",
 		"dist/**",
 		"logs/",
-		"uploads/"
+		"uploads/",
+		"src/frontend/**"
 	]
 }

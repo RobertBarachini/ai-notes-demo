@@ -59,6 +59,7 @@ const runShellCommand = async (command) => {
 }
 
 const getWhisperResult = async (options) => {
+	console.log(`Whisper options: ${JSON.stringify(options)}`)
 	let { language, model, filepath } = options
 	let command = 'whisper'
 	if (!filepath) {
@@ -80,15 +81,24 @@ const getWhisperResult = async (options) => {
 	if (shell_error) {
 		return [null, shell_error]
 	}
-	// Split by newline
-	let result_lines = shell_result.split('\n')
-	// Remove empty lines
-	result_lines = result_lines.filter((line) => line !== '')
-	// Return only lines starting with [
-	result_lines = result_lines.filter((line) => line.startsWith('['))
-	// Join as result string
-	const result = result_lines.join('\n')
-	return [result, null]
+
+	// // Split by newline
+	// let result_lines = shell_result.split('\n')
+	// // Remove empty lines
+	// result_lines = result_lines.filter((line) => line !== '')
+	// // Return only lines starting with [
+	// result_lines = result_lines.filter((line) => line.startsWith('['))
+	// // Join as result string
+	// const result = result_lines.join('\n')
+
+	// Read result from uploads/recording.txt
+	try {
+		const result_filepath = path.join('uploads', 'recording.txt')
+		const result = fs.readFileSync(result_filepath, 'utf8')
+		return [result, null]
+	} catch (error) {
+		return [null, error]
+	}
 }
 
 app.post('/upload', upload.single('audio'), async (req, res) => {
@@ -101,6 +111,7 @@ app.post('/upload', upload.single('audio'), async (req, res) => {
 		// filepath: req.file.path,
 		filepath: 'uploads/recording.wav',
 		language: 'English',
+		model: 'tiny',
 	})
 	if (error) {
 		log.error(error)
@@ -108,18 +119,21 @@ app.post('/upload', upload.single('audio'), async (req, res) => {
 		return
 	}
 	// Send the result string back to the client
-	res.send(`Whisper says: '${result}'`)
+	// res.send(`Whisper says: '${result}'`)
+	res.send(result)
 })
 
 const generate = async (options, res) => {
 	try {
 		const { text, category, custom } = options
+		console.log(`Generate options: ${JSON.stringify(options)}`)
 		const prompts = {
 			documentation: 'write documentation from above text in markdown',
-			'meeting-notes': 'write meeting notes from above text in markdown',
+			'meeting-notes':
+				'write meeting notes that are summarized and then organized by topic from above text in markdown',
 			summary: 'write a summary from above text',
 			'leading-questions':
-				'write leading questions from above text formatted as a markdown list',
+				'write leading questions for the next meeting from above text formatted as a markdown list',
 			custom: custom,
 		}
 		const prompt = prompts[category]
@@ -135,9 +149,9 @@ const generate = async (options, res) => {
 		if (res) {
 			res.setHeader('Content-Type', 'text/plain')
 			for await (const part of chatCompletion) {
-				if (part.choices[0]?.delta?.content !== '') {
-					console.log(part.choices[0]?.delta?.content)
-				}
+				// if (part.choices[0]?.delta?.content !== '') {
+				// 	console.log(part.choices[0]?.delta?.content)
+				// }
 				res.write(part.choices[0]?.delta?.content || '')
 			}
 			res.end()
