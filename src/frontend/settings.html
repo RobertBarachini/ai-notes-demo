@@ -17,8 +17,10 @@
 				<path
 					d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
 			</svg> -->
-			<img src="./assets/logo.png" alt="logo"
-				class="fill-current h-12 w-12 mr-2 border-2 border rounded-full border-white" width="64" height="64">
+			<a href="index.html">
+				<img src="./assets/logo.png" alt="logo"
+					class="fill-current h-12 w-12 mr-2 border-2 border rounded-full border-white" width="64" height="64">
+			</a>
 			<span class="font-semibold text-xl tracking-tight">Drip.io</span>
 		</div>
 		<div class="block lg:hidden">
@@ -56,181 +58,259 @@
 	</nav>
 	<!-- Container all content -->
 	<div class="flex flex-col h-screen max-w-screen-lg mx-auto w-full bg-bluue-300">
-		<!-- Container Select Input -->
-		<div id="containerSelectInput" class="flex flex-col bg-reed-300 px-6 py-12">
-
-			<div class="flex flex-col items-center text-center pb-12">
-				<div class="text-2xl font-bold text-orange-500">
-					Hello there!
-				</div>
-				<img src=" ./assets/logo.png" alt="logo" class="py-3 oscillate-div" style="max-width: 200px;">
-				<div class="text-2xl font-bold text-orange-500">
-					My name is Dripio and I will help you organize your thoughts.
-					<br>
-					How will you enter your notes today?
-				</div>
-			</div>
-
-			<div class="text-4xl font-bold text-orange-500 text-center">Select Input</div>
-			<div class="flex gap-4 justify-center items-center pt-6">
-				<button
-					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
-					onclick="clickedRecordVoice()">
-					Record voice
-				</button>
-				<button
-					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
-					onclick="clickedUploadFile()">
-					Upload a file
-				</button>
-				<button
-					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
-					onclick="clickedEnterText()">
-					Enter text
-				</button>
-			</div>
-		</div>
-		<!-- Container Record voice -->
-		<div id="containerRecordVoice" class="flex flex-col bg-reed-300 px-6 py-12">
-			<div class="pb-6 text-right">
-				<button type="button"
-					class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-md shadow rounded-md text-white bg-orange-500 hover:bg-orange-400 transition ease-in-out duration-150 cursor-pointer"
-					onclick="clickedBackToInputSelection()">
-					<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="mr-3 h-5 w-5" fill="white" viewBox="0 0 100 100"
-						style="stroke-width: 20; stroke: white; stroke-linejoin: round; stroke-linecap: round;">
-						<path d="M 10,50 90,10 90,90 Z" />
-					</svg>
-					Back to input selection
-				</button>
-			</div>
-			<div class="text-4xl font-bold text-orange-500 text-center">Voice Recorder</div>
-			<div class="flex gap-4 justify-center items-center pt-6">
-				<button
-					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
-					onclick="clickedStartRecording()" id="buttonStartRecording">
-					Start Recording
-				</button>
-				<button
-					class="bg-white text-orange-500 font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400 hover:text-orange-400"
-					onclick="clickedStopRecording()" id="buttonStopRecording">
-					Stop recording
-				</button>
-			</div>
-			<div class=" py-6">
-				<audio controls id="audioPreview"
-					class="rounded-full overflow-hidden w-full bg-green-500 border-orange-500 border-4 ">
-					Your browser does not support the audio element.
-				</audio>
-			</div>
-			<div class="flex gap-4 justify-center items-center">
-				<button
-					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
-					onclick="clickedUploadRecording()" id="buttonUploadRecording">
-					Upload recording
-				</button>
-			</div>
-		</div>
-		<!-- Container Waiting for X -->
-		<div id="containerWaitingFor" class="flex bg-reed-300 px-6 py-12 items-center justify-center">
-			<button type="button"
-				class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-md shadow rounded-md text-white bg-orange-500 hover:bg-orange-400 transition ease-in-out duration-150 cursor-not-allowed"
-				disabled="">
-				<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-					viewBox="0 0 24 24">
-					<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-					<path class="opacity-75" fill="currentColor"
-						d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-					</path>
-				</svg>
-				<div id="buttonWaitingForX">Waiting for X...</div>
-			</button>
-		</div>
-		<!-- Container Transcription -->
+		<!-- Container User settings -->
 		<div id="containerTranscription" class="flex flex-col bg-reed-300 px-6 py-12">
-			<div class="pb-6 text-right">
-				<button type="button"
-					class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-md shadow rounded-md text-white bg-orange-500 hover:bg-orange-400 transition ease-in-out duration-150 cursor-pointer"
-					onclick="clickedBackToInputSelection()">
-					<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="mr-3 h-5 w-5" fill="white" viewBox="0 0 100 100"
-						style="stroke-width: 20; stroke: white; stroke-linejoin: round; stroke-linecap: round;">
-						<path d="M 10,50 90,10 90,90 Z" />
-					</svg>
-					Back to input selection
-				</button>
+			<div class="text-4xl font-bold text-orange-500">User settings</div>
+			<div class="flex flex-col py-3">
+				<div class="py-3">
+					<img src="https://avatars.githubusercontent.com/u/13259803?v=4" alt="profile picture"
+						class="fill-current border-2 border rounded-full border-white lg:mt-0" height="180px" width="180px">
+				</div>
+				<div class="flex">
+					<button
+						class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400"
+						onclick="clickedEnterText()">
+						Edit profile picture
+					</button>
+				</div>
 			</div>
-			<div class="text-4xl font-bold text-orange-500">Transcription</div>
-			<textarea id="textTranscription"
-				class="w-full h-64 bg-white border-2 border-orange-500 rounded-lg p-4 mt-4 focus:border-orange-500 focus:outline-none focus:ring-0 text-orange-500">
-we talked about designing a new service for our banking app it looks like we'll need a connection to the main service as well and umm we'll also have to create a website using SvelteKit. we also talked about a deadline which is about a month away so a release for Q1 2024 still looks promising. oh and more requirements we also have to look into using QUIC as it may improve our performance we have to get the team together and plan this next release and also sync with our clients I'll have to create a new Gantt chart for that might also have to link up Jira. oh and also it would be ideal to start using Gitlab CI eventually maybe we can push it into our schedule for this release
 
-			</textarea>
-			<div class="pt-3">
-				<audio controls id="audioTranscription"
-					class="rounded-full overflow-hidden w-full bg-green-500 border-orange-500 border-2 ">
-					Your browser does not support the audio element.
-				</audio>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						Username
+					</div>
+				</div>
+				<input value="robert_barachini"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					Edit
+				</button>
 			</div>
 			<div class="flex items-center gap-4">
 				<div class="flex-shrink-0">
 					<div class="text-md text-orange-500 mt-4 font-semibold">
-						Prompt category:
+						Display name
 					</div>
 				</div>
-				<select
-					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 focus:border-orange-400 hover:border-orange-400 cursor-pointer"
-					id="promptCategory" onchange="changedPromptCategory()">
-					<option value="documentation">Documentation</option>
-					<option value="meeting-notes">Meeting notes</option>
-					<option value="summary">Summary</option>
-					<option value="leading-questions">Leading questions</option>
-					<option value="custom">Custom</option>
-				</select>
-				<input value="Write a short poem about the above text"
+				<input value="Robert Barachini"
 					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
 					id="promptCustom">
 				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					Edit
+				</button>
+			</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						Password
+					</div>
+				</div>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					Change password
+				</button>
 			</div>
 			<div class="flex gap-4 justify-center items-center pt-6">
 				<button
 					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
 					onclick="clickedGenerate()">
-					Generate
+					View more transcriptions
 				</button>
 			</div>
 		</div>
+
+
+		<!-- Container Past Transcriptions -->
+		<div id="containerTranscription" class="flex flex-col bg-reed-300 px-6 py-12">
+			<div class="text-4xl font-bold text-orange-500">Past Transcriptions</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						2023-10-10 14:48:23
+					</div>
+				</div>
+				<input
+					value="this meeting took a lot of time maybe we could schedule a meeting for shortening meetings and stuff"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						2023-10-09 23:48:23
+					</div>
+				</div>
+				<input
+					value="just got a really cool idea I got to share it with the team tomorrow morning I think it's going to be really cool"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						2023-10-08 12:26:29
+					</div>
+				</div>
+				<input value="wow this project is really coming along nicely but I still have to create a UI"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex gap-4 justify-center items-center pt-6">
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
+					onclick="clickedGenerate()">
+					View more transcriptions
+				</button>
+			</div>
+		</div>
+
+		<!-- Container Prompt Library -->
+		<div id="containerTranscription" class="flex flex-col bg-reed-300 px-6 py-12">
+			<div class="text-4xl font-bold text-orange-500">Prompt Library</div>
+			<div class="text-2xl font-bold text-orange-500 pt-6">Standard library (defaults)</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						documentation
+					</div>
+				</div>
+				<input value="write documentation from above text in markdown"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						meeting-notes
+					</div>
+				</div>
+				<input
+					value="just got a really cool idea I got to share it with the team tomorrow morning I think it's going to be really cool"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						summary
+					</div>
+				</div>
+				<input value="write a summary from above text"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						leading-questions
+					</div>
+				</div>
+				<input value="write leading questions for the next meeting from above text formatted as a markdown list"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex gap-4 justify-center items-center pt-6">
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
+					onclick="clickedGenerate()">
+					Browse more prompts
+				</button>
+			</div>
+			<div class="text-2xl font-bold text-orange-500 pt-6">User library</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						poem
+					</div>
+				</div>
+				<input value="write a short poem about the above text"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex items-center gap-4">
+				<div class="flex-shrink-0">
+					<div class="text-md text-orange-500 mt-4 font-semibold">
+						email
+					</div>
+				</div>
+				<input value="use above text to prepare an email template for the next meeting with the team"
+					class="bg-white border-2 border-orange-500 rounded-lg p-3 mt-4 focus:outline-none focus:ring-0 text-md text-orange-500 w-full focus:border-orange-400 hover:border-orange-400"
+					id="promptCustom">
+				</input>
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-4 rounded-full drop-shadow-lg border-orange-500 border-2 hover:border-orange-400 mt-4"
+					onclick="clickedGenerate()">
+					More
+				</button>
+			</div>
+			<div class="flex gap-4 justify-center items-center pt-6">
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
+					onclick="clickedGenerate()">
+					Edit user library
+				</button>
+			</div>
+		</div>
+
 		<!-- Container Generated -->
-		<div id="containerGenerated" class="flex flex-col bg-reed-300 px-6 py-12">
-			<div class="pb-6 text-right">
-				<button type="button"
-					class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-md shadow rounded-md text-white bg-orange-500 hover:bg-orange-400 transition ease-in-out duration-150 cursor-pointer"
-					onclick="clickedBackToTranscription()">
-					<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="mr-3 h-5 w-5" fill="white" viewBox="0 0 100 100"
-						style="stroke-width: 20; stroke: white; stroke-linejoin: round; stroke-linecap: round;">
-						<path d="M 10,50 90,10 90,90 Z" />
-					</svg>
-					Back to transcription
-				</button>
-			</div>
-			<div class="text-4xl font-bold text-orange-500">Generated content</div>
-			<textarea id="textGenerated"
-				class="w-full h-64 bg-white border-2 border-orange-500 rounded-lg p-4 mt-4 focus:border-orange-500 focus:outline-none focus:ring-0 text-orange-500">
-			</textarea>
-			<div class="pt-6">
-				<button type="button"
-					class="inline-flex items-center px-4 py-2 font-semibold text-md shadow rounded-md text-white bg-orange-500 hover:bg-orange-400 transition ease-in-out duration-150 cursor-pointer"
-					onclick="clickedCopyToClipboard('clipboardButtonText')">
-					<!-- Icon from https://commons.wikimedia.org/wiki/Category:SVG_clipboard_icons -->
-					<svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="currentColor" class="bi bi-clipboard2-plus"
-						viewBox="0 0 16 16">
-						<path
-							d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
-						<path
-							d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z" />
-						<path d="M8.5 6.5a.5.5 0 0 0-1 0V8H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V9H10a.5.5 0 0 0 0-1H8.5V6.5Z" />
-					</svg>
-					<div id="clipboardButtonText">Copy to clipboard</div>
-				</button>
-			</div>
+		<div id="containerGenerated" class="flex flex-col bg-reed-300 px-6 pb-12">
 			<div id="containerMyConnectors" class="block">
 				<div class="text-4xl font-bold text-orange-500 pt-6 py-3">My connectors</div>
 				<div class="fill-orange-500 flex flex-wrap gap-4 py-3">
@@ -357,22 +437,21 @@ we talked about designing a new service for our banking app it looks like we'll 
 					</svg>
 				</div>
 			</div>
+			<div class="flex gap-4 justify-center items-center pt-6">
+				<button
+					class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-4 px-4 rounded-full drop-shadow-lg border-orange-500 border-4 hover:border-orange-400"
+					onclick="clickedGenerate()">
+					Edit connectors
+				</button>
+			</div>
 		</div>
 	</div>
 	<div class="flex fixed bottom-4 right-4 p-4 text-white drop-shadow-lg gap-4 items-center" onclick="toggleAssistant()">
-		<div id="assistantText" class="rounded-lg bg-orange-500 text-center p-5 text-lg max-w-sm">I'm still learning for now
-			but some day I
-			will
-			answer
-			your
-			questions :^)
-		</div>
 		<div>
 			<img src="./assets/logo.png" alt="Assistant"
 				class="w-16 h-16 rounded-full border-4 border rounded-full border-white cursor-pointer oscillate-div-sm">
 		</div>
 	</div>
 </body>
-<script src="script.js"></script>
 
 </html>

@@ -111,7 +111,7 @@ app.post('/upload', upload.single('audio'), async (req, res) => {
 		// filepath: req.file.path,
 		filepath: 'uploads/recording.wav',
 		language: 'English',
-		model: 'tiny',
+		// model: 'tiny',
 	})
 	if (error) {
 		log.error(error)
