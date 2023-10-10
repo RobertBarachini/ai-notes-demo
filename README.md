@@ -1,6 +1,6 @@
 # Project description
 
-Demo project for turning multimedia (audio) to structured notes.
+Demo project for turning multimedia into structured notes.
 
 Created using a template from https://github.com/RobertBarachini/nodejs-template
 
